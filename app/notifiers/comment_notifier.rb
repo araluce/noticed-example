@@ -10,6 +10,16 @@ class CommentNotifier < Noticed::Event
     config.params = ->(recipient) { {user: recipient} }
   end
 
+  def message
+    "This is my foo: #{params[:foo]}"
+  end
+
+  notification_methods do
+    def message
+      "This is #{recipient.name}'s foo: #{params[:foo]}"
+    end
+  end
+
   #bulk_deliver_by :slack do |config|
     #config.url = -> { Rails.application.credentials.slack_webhook_url }
   #end
